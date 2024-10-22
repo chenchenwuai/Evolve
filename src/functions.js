@@ -258,6 +258,10 @@ window.importGame = function importGame(data,utf16){
     }
 }
 
+window.GodMode = function GodMode(){
+    window.global = global
+}
+
 export function powerGrid(type,reset){
     let grids = gridDefs();
 

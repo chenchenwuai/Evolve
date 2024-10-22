@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato&display=swap">
     <link rel="stylesheet" href="lib/buefy.min.0.9.22.css">
     <link rel="stylesheet" type="text/css" href="lib/weather-icons.min.css">
+    <link rel="stylesheet" type="text/css" href="./src/firebase.css">
     <link rel="stylesheet" type="text/css" href="evolve/evolve.css">
     <script src="https://unpkg.com/jquery@3.6.3/dist/jquery.min.js" integrity="sha384-Ft/vb48LwsAEtgltj7o+6vtS2esTU9PCpDqcXs4OCVQFZu5BqprHtUCZ4kjK+bpE" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/vue@2.7.14/dist/vue.min.js" integrity="sha384-05dHfbm/L0COkFLQ5ghEDllrtj0kD1/46h3bAPxuPjWq9/IDglEo6RtZefYkYfpk" crossorigin="anonymous"></script>
@@ -18,6 +19,10 @@
     <script src="https://unpkg.com/sortablejs@1.10.2/Sortable.min.js" integrity="sha384-6qM1TfKo1alBw3Uw9AWXnaY5h0G3ScEjxtUm4TwRJm7HRmDX8UfiDleTAEEg5vIe" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/chart.js@3.8.2/dist/chart.min.js" integrity="sha384-z7c1KnSCkMpfoib43Lq1v2pokQC8cdqBWmH2qiyH2KkmNv60hACtZUjoCEkp1Y08" crossorigin="anonymous"></script>
     <script src="lib/lz-string.min.js"></script>
+    <script src="lib/dayjs.min.js"></script>
+    <script src="lib/md5.js"></script>
+    <script src="lib/PlayFabClientApi.js" crossorigin="anonymous"></script>
+    <script src="src/firebase.js" type="module"></script>
     <script src="evolve/main.js" type="module"></script>
 </head>
 <body>
@@ -52,13 +57,5 @@
         }
     </style>
     <div class="loading"><div class="lds-dual-ring"></div></div>
-
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-CPC46V71CB"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
-        gtag('config', 'G-CPC46V71CB');
-    </script>
 </body>
 </html>

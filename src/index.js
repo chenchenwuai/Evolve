@@ -1352,7 +1352,7 @@ export function index(){
                 <b-dropdown-item v-on:click="setQueueResize('manual')">{{ 'q_resize_manual' | label }}</b-dropdown-item>
             </b-dropdown>
         </div>
-
+        <div>
         <b-switch class="setting" v-model="s.pause" @input="unpause"><span class="settings12" aria-label="${loc('settings12')}">{{ 'pause' | label }}</span></b-switch>
         <b-switch class="setting" v-model="s.mKeys"><span class="settings1" aria-label="${loc('settings1')}">{{ 'm_keys' | label }}</span></b-switch>
         <b-switch class="setting" v-model="s.cLabels"><span class="settings5" aria-label="${loc('settings5')}">{{ 'c_cat' | label }}</span></b-switch>
@@ -1365,6 +1365,7 @@ export function index(){
         <b-switch class="setting" v-model="s.tabLoad" @input="toggleTabLoad"><span class="settings11" aria-label="${loc('settings11')}">{{ 'tabLoad' | label }}</span></b-switch>
         <b-switch class="setting" v-model="s.boring"><span class="settings10" aria-label="${loc('settings10')}">{{ 'boring' | label }}</span></b-switch>
         <b-switch class="setting" v-model="s.touch"><span class="settings16" aria-label="${loc('settings16')}">{{ 'touch' | label }}</span></b-switch>
+        </div>
         <div>
             <div>${loc('key_mappings')}</div>
             <div class="keyMap"><span>${loc('multiplier',[10])}</span> <b-input v-model="s.keyMap.x10" id="x10Key"></b-input></div>
@@ -1399,6 +1400,7 @@ export function index(){
             <button class="button" @click="saveExportFile">{{ 'export_file' | label }}</button>
             <button class="button right" @click="restoreGame"><span class="settings9" aria-label="${loc('settings9')}">{{ 'restore' | label }}</span></button>
         </div>
+        <firebase-auth></firebase-auth>
         <div class="reset">
             <b-collapse :open="false">
                 <b-switch v-model="s.disableReset" slot="trigger">{{ 'enable_reset' | label }}</b-switch>
@@ -1437,18 +1439,14 @@ export function index(){
                 <h1>
                     <span class="has-text-warning">${egg15.length > 0 ? `Ev${egg15}lve` : `Evolve`}</span>
                     by
-                    <span class="has-text-success">Demagorddon</span>
+                    <span class="has-text-success">Chenwuai</span>
                 </h1>
             </span>
             <span class="right">
                 <h2 class="is-sr-only">External Links</h2>
                 <ul class="external-links">
                     <li><a href="wiki.html" target="_blank">Wiki</a></li>
-                    <li><a href="https://www.reddit.com/r/EvolveIdle/" target="_blank">Reddit</a></li>
-                    <li><a href="https://discord.gg/dcwdQEr" target="_blank">Discord</a></li>
-                    <li><a href="https://github.com/pmotschmann/Evolve" target="_blank">GitHub</a></li>
-                    <li><a href="https://www.patreon.com/demagorddon" target="_blank">Patreon</a></li>
-                    <li><a href="https://www.paypal.com/cgi-bin/webscr?cmd=_donations&business=PTRJZBW9J662C&currency_code=USD&source=url" target="_blank">Donate</a></li>
+                    <li><a href="https://github.com/chenchenwuai" target="_blank">GitHub</a></li>
                 </ul>
             </span>
         </div>

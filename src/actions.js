@@ -5531,7 +5531,7 @@ export function setAction(c_action,action,type,old,prediction){
         }
         if (prediction){ clss = ' precog'; }
         let active = c_action['highlight'] ? (c_action.highlight() ? `<span class="is-sr-only">${loc('active')}</span>` : `<span class="is-sr-only">${loc('not_active')}</span>`) : '';
-        element = $(`<a class="button is-dark${cst}${clss}"${data} v-on:click="action"><span class="aTitle" v-html="$options.filters.title(title)"></span>${active}</a><a role="button" v-on:click="describe" class="is-sr-only">{{ title }} description</a>`);
+        element = $(`<a class="button is-dark${cst}${clss}"${data} v-on:mousedown="onMousedown" v-on:mouseup="onMouseup" v-on:click="action"><span class="aTitle" v-html="$options.filters.title(title)"></span>${active}</a><a role="button" v-on:click="describe" class="is-sr-only">{{ title }} description</a>`); 
     }
     parent.append(element);
 
@@ -5606,10 +5606,47 @@ export function setAction(c_action,action,type,old,prediction){
         el: '#'+id,
         data: {
             title: typeof c_action.title === 'string' ? c_action.title : c_action.title(),
-            act: global[action][type]
+            act: global[action][type],
+            blinkTimer: null,
+            mousedownTimer: null
+        },
+        mounted(){
+            if(id === 'evolution-rna' && global.resource.RNA.amount === 0){
+                this.initBlink()
+            }
+        },
+        beforeDestroy(){
+            clearInterval(this.blinkTimer)
+            clearInterval(this.mousedownTimer)
         },
         methods: {
+            initBlink(){
+                const parent = document.querySelector("#evolution")
+                if(parent && parent.children.length === 1){
+                    this.blinkTimer = setInterval(()=>{
+                        if(this.$el.classList.contains('hl')){
+                            this.$el.classList.remove('hl')
+                        }else{
+                            this.$el.classList.add('hl')
+                        }
+                    },400)
+                }
+            },
+            stopBlink(){
+                clearInterval(this.blinkTimer)
+                this.$el.classList.remove('hl')
+            },
+            onMousedown(){
+                clearInterval(this.mousedownTimer)
+                this.mousedownTimer = setInterval(()=>{
+                    runAction(c_action,action,type)
+                },50)
+            },
+            onMouseup(){
+                clearInterval(this.mousedownTimer)
+            },
             action(){
+                this.stopBlink()
                 if ('ontouchstart' in document.documentElement && navigator.userAgent.match(/Mobi/ && global.settings.touch) ? true : false){
                     return;
                 }
