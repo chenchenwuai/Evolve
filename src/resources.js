@@ -2594,14 +2594,15 @@ function initStorage(){
     $('#resStorage').append(store);
     
     if (global.resource['Crates'] && global.resource['Containers']){
-        store.append($(`<b-tooltip :label="buildCrateDesc()" position="is-bottom" class="crate" animated multilined><button :aria-label="buildCrateDesc()" v-show="cr.display" class="button" @click="crate">${loc('resource_modal_crate_construct')}</button></b-tooltip>`));
-        store.append($(`<b-tooltip :label="buildContainerDesc()" position="is-bottom" class="container" animated multilined><button :aria-label="buildContainerDesc()" v-show="cn.display" class="button" @click="container">${loc('resource_modal_container_construct')}</button></b-tooltip>`));
+        store.append($(`<b-tooltip :label="buildCrateDesc()" position="is-bottom" class="crate" animated multilined><button :aria-label="buildCrateDesc()" v-show="cr.display" class="button" @click="crate" v-on:mousedown="onMouseDown('crate')" v-on:mouseup="onMouseUp">${loc('resource_modal_crate_construct')}</button></b-tooltip>`));
+        store.append($(`<b-tooltip :label="buildContainerDesc()" position="is-bottom" class="container" animated multilined><button :aria-label="buildContainerDesc()" v-show="cn.display" class="button" @click="container" v-on:mousedown="onMouseDown('container')" v-on:mouseup="onMouseUp">${loc('resource_modal_container_construct')}</button></b-tooltip>`));
 
         vBind({
             el: '#createHead',
             data: {
                 cr: global.resource.Crates,
-                cn: global.resource.Containers
+                cn: global.resource.Containers,
+                timer: null
             },
             methods: {
                 crate(){
@@ -2616,6 +2617,19 @@ function initStorage(){
                 buildContainerDesc(){
                     return buildContainerLabel();
                 },
+                onMouseDown(type){
+                    clearInterval(this.timer)
+                    this.timer = setInterval(()=>{
+                        if(type === 'crate'){
+                            buildCrate()
+                        }else{
+                            buildContainer()
+                        }
+                    },40)
+                },
+                onMouseUp(){
+                    clearInterval(this.timer)
+                }
             }
         });
     }
@@ -2664,10 +2678,10 @@ function tradeMax(){
         return 1000000;
     }
     else if (global.tech['currency'] >= 4){
-        return 5000;
+        return 50000;
     }
     else {
-        return 100;
+        return 1000;
     }
 }
 
