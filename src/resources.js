@@ -2678,10 +2678,10 @@ function tradeMax(){
         return 1000000;
     }
     else if (global.tech['currency'] >= 4){
-        return 50000;
+        return 5000;
     }
     else {
-        return 1000;
+        return 100;
     }
 }
 

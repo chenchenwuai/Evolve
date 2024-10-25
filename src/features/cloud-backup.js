@@ -1,44 +1,43 @@
-import { global } from './vars.js';
-
-Vue.component('firebase-auth',{
-  template:`<div id="firebase-auth">
+Vue.component('cloud-backup',{
+  template:`<div id="cloud-backup" style="margin-top: 1rem;">
     <b-switch v-model="enableCloudBackup" class="label" @input="onSaveChange"> 开启云存档 ( PlayFab ) </b-switch>
-    <div v-if="enableCloudBackup" class="firebase-auth-container">
-      <div v-show="!isLogin" class="auth-login">
+    <div v-if="enableCloudBackup">
+      <div v-show="!isLogin" class="auth-login" style="max-width: 30rem;">
         <b-tabs v-model="activeTab">
           <b-tab-item label="登录">
-            <div v-if="loginTip" class="login-tip" v-html="loginTip"></div>
-            <b-field label="用户名">
-              <b-input v-model="form.Username">
+            <div v-if="loginTip" v-html="loginTip" style="color: #F14668;font-size: 0.8rem;margin: 0.5rem;"></div>
+            <b-field label="用户名" horizontal>
+              <b-input v-model="form.Username" size="is-small">
               </b-input>
             </b-field>
-            <b-field label="密码">
-                <b-input type="password" v-model="form.Password" password-reveal>
+            <b-field label="密码" horizontal>
+                <b-input type="password" v-model="form.Password" password-reveal size="is-small">
                 </b-input>
             </b-field>
-            <b-button @click="toLogin" :loading="loading">登 录</b-button>
+            <b-button @click="toLogin" :loading="loading" size="is-small">登 录</b-button>
           </b-tab-item>
           <b-tab-item label="注册">
-            <div v-if="registerTip" class="login-tip" v-html="registerTip"></div>
-            <b-field label="用户名">
-              <b-input v-model="form.Username">
+            <div v-if="registerTip" v-html="registerTip" style="color: #F14668;font-size: 0.8rem;margin: 0.5rem;"></div>
+            <b-field label="用户名" horizontal>
+              <b-input v-model="form.Username" size="is-small">
               </b-input>
             </b-field>
-            <b-field label="密码">
-                <b-input type="password" v-model="form.Password" password-reveal>
+            <b-field label="密码" horizontal>
+                <b-input type="password" v-model="form.Password" password-reveal size="is-small">
                 </b-input>
             </b-field>
-            <b-field label="确认密码">
-                <b-input type="password" v-model="confirmPassword" password-reveal>
+            <b-field label="确认密码" horizontal>
+                <b-input type="password" v-model="confirmPassword" password-reveal size="is-small">
                 </b-input>
             </b-field>
-            <b-button @click="doRegister" :loading="loading">注 册</b-button>
+            <div class="has-text-danger" style="font-size:0.85rem;">请牢记注册信息，忘记无法找回</div>
+            <b-button @click="doRegister" :loading="loading" size="is-small">注 册</b-button>
           </b-tab-item>
         </b-tabs>
       </div>
-      <div v-show="isLogin" class="sync-status">
+      <div v-show="isLogin">
         <div>登录账号：{{ Username }} </div>
-        <div v-if="cloudSaveTime" style="font-size:12px;">云端存档时间：{{ cloudSaveTime }} </div>
+        <div v-if="cloudBackupTime" style="font-size:12px;">云端存档时间：{{ cloudBackupTime }} </div>
         <div style="margin-top:0.8rem;">
           <b-button type="is-primary" @click="importUserData">从云端导入存档(注意提前备份本地存档)</b-button>
           <b-button type="is-primary" @click="saveUserData">立即备份到云端</b-button>
@@ -62,17 +61,17 @@ Vue.component('firebase-auth',{
       confirmPassword:'',
       loginTip:'',
       registerTip:'',
-      saveTimer: null,
-      cloudSaveTime: ''
+      timer: null,
+      cloudBackupTime: ''
     }
   },
   mounted(){
     PlayFab.settings.titleId = "2335B"
-    const enable = localStorage.getItem('PlayFabE')
+    const enable = localStorage.getItem('CloudBE')
     this.enableCloudBackup = enable == 1
 
-    const i = localStorage.getItem('PlayFabI')
-    const p = localStorage.getItem('PlayFabP')
+    const i = localStorage.getItem('CloudBI')
+    const p = localStorage.getItem('CloudBP')
     if(i && p){
       const form = {
         Username: LZString.decompressFromBase64(i),
@@ -138,8 +137,8 @@ Vue.component('firebase-auth',{
         this.PlayFabId = e.data.PlayFabId
         this.Username = form.Username
 
-        localStorage.setItem('PlayFabI', LZString.compressToBase64(form.Username))
-        localStorage.setItem('PlayFabP', form.Password)
+        localStorage.setItem('CloudBI', LZString.compressToBase64(form.Username))
+        localStorage.setItem('CloudBP', form.Password)
         
         this.getUserData()
         this.autoSaveToPlayFab()
@@ -152,7 +151,7 @@ Vue.component('firebase-auth',{
         if(!t){
           const saveTime = e.data.Data.saveTime
           if(saveTime){
-            this.cloudSaveTime = saveTime.Value
+            this.cloudBackupTime = saveTime.Value
           }
         }
       })
@@ -164,7 +163,6 @@ Vue.component('firebase-auth',{
         if(!t){
           const saveString = e.data.Data.saveString
           if(saveString){
-            console.log('saveString',saveString.Value)
             importGame(saveString.Value)
           }
         }
@@ -178,25 +176,25 @@ Vue.component('firebase-auth',{
         }
       }, (e,t)=>{
         if(!t){
-          this.cloudSaveTime =  dayjs().format('YYYY-MM-DD HH:mm:ss')
+          this.cloudBackupTime =  dayjs().format('YYYY-MM-DD HH:mm:ss')
         }
       })
     },
     doSignOut(){
       this.cleanState()
       this.loading = false
-      clearInterval(this.saveTimer)
+      clearInterval(this.timer)
     },
     autoSaveToPlayFab(){
-      clearInterval(this.saveTimer)
-      this.saveTimer = setInterval(()=>{
+      clearInterval(this.timer)
+      this.timer = setInterval(()=>{
         if(this.enableCloudBackup && this.isLogin && this.PlayFabId){
           this.saveUserData()
         }
       }, 1800 * 1000)
     },
     onSaveChange(val){
-      localStorage.setItem('PlayFabE',+val)
+      localStorage.setItem('CloudBE',+val)
     },
     cleanState(){
       this.isLogin = false
@@ -205,8 +203,8 @@ Vue.component('firebase-auth',{
       this.form.Username = ''
       this.form.Password = ''
       this.confirmPassword = ''
-      localStorage.setItem('PlayFabI','')
-      localStorage.setItem('PlayFabP', '')
+      localStorage.setItem('CloudBI','')
+      localStorage.setItem('CloudBP', '')
       this.cleanTip()
     },
     cleanTip(){

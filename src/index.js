@@ -1400,8 +1400,9 @@ export function index(){
             <button class="button" @click="saveExportFile">{{ 'export_file' | label }}</button>
             <button class="button right" @click="restoreGame"><span class="settings9" aria-label="${loc('settings9')}">{{ 'restore' | label }}</span></button>
         </div>
-        <firebase-auth></firebase-auth>
-        <fake-website></fake-website>
+
+        <cloud-backup></cloud-backup>
+
         <div class="reset">
             <b-collapse :open="false">
                 <b-switch v-model="s.disableReset" slot="trigger">{{ 'enable_reset' | label }}</b-switch>

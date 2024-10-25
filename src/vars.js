@@ -1059,9 +1059,9 @@ if (convertVersion(global['version']) < 102017){
     if (global.tech.hasOwnProperty('genetics') && global.tech.genetics > 1 && global.hasOwnProperty('arpa')){
         if (!global.arpa.hasOwnProperty('sequence')){
             global.arpa['sequence'] = {
-                max: 5000,
+                max: 50000,
                 progress: 0,
-                time: 5000,
+                time: 50000,
                 on: false
             };
         }
