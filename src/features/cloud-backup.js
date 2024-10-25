@@ -1,5 +1,5 @@
 Vue.component('cloud-backup',{
-  template:`<div id="cloud-backup" style="margin-top: 1rem;">
+  template:`<div id="cloud-backup">
     <b-switch v-model="enableCloudBackup" class="label" @input="onSaveChange"> 开启云存档 ( PlayFab ) </b-switch>
     <div v-if="enableCloudBackup">
       <div v-show="!isLogin" class="auth-login" style="max-width: 30rem;">

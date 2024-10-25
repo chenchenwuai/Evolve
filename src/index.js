@@ -1401,7 +1401,7 @@ export function index(){
             <button class="button right" @click="restoreGame"><span class="settings9" aria-label="${loc('settings9')}">{{ 'restore' | label }}</span></button>
         </div>
 
-        <cloud-backup></cloud-backup>
+        <personal-features></personal-features>
 
         <div class="reset">
             <b-collapse :open="false">
@@ -1453,6 +1453,4 @@ export function index(){
             </span>
         </div>
     `);
-
-    $('body').append(`<iframe id="fakeWebsite" class="fakeWebsite"></iframe>`)
 }
