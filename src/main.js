@@ -21,8 +21,10 @@ import { index, mainVue, initTabs, loadTab } from './index.js';
 import { setWeather, seasonDesc, astrologySign, astroVal } from './seasons.js';
 import { getTopChange } from './wiki/change.js';
 import { enableDebug, updateDebugData } from './debug.js';
+import './features/index.js'
 
 {
+    // 是否是黑夜模式设置favicon
     $(document).ready(function() {
         if (!window.matchMedia)
             return;
@@ -42,6 +44,7 @@ import { enableDebug, updateDebugData } from './debug.js';
     });
 }
 
+// 检查是否双开页面
 var multitab = false;
 window.addEventListener('storage', (e) => {
     if (multitab === false){
@@ -54,6 +57,7 @@ if (global.settings.expose){
     enableDebug();
 }
 
+// 快捷菜单映射
 var quickMap = {
     showCiv: 1,
     showCivic: 2,
@@ -64,6 +68,7 @@ var quickMap = {
     settings: 7
 };
 
+// 监听按键动作
 $(document).keydown(function(e){
     e = e || window.event;
     let key = e.key || e.keyCode;
@@ -167,6 +172,8 @@ $(document).mousemove(function(e){
 });
 
 index();
+
+// 版本号
 var revision = global['revision'] ? global['revision'] : '';
 if (global['beta']){
     $('#topBar .version > a').html(`v${global.version} Beta ${global.beta}${revision}`);
@@ -175,6 +182,7 @@ else {
     $('#topBar .version > a').html('v'+global.version+revision);
 }
 
+// 初始化
 initMessageQueue();
 
 if (global.lastMsg){

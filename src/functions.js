@@ -355,6 +355,7 @@ export function initMessageQueue(filters){
     filters = filters || message_filters;
     filters.forEach(function (filter){
         message_logs[filter] = [];
+        // 是否显示某个消息类型
         if (!global.settings.msgFilters[message_logs.view].vis){
             $(`#msgQueueFilter-${message_logs.view}`).removeClass('is-active');
             $(`#msgQueueFilter-${filter}`).addClass('is-active');

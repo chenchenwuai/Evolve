@@ -1,0 +1,33 @@
+.cheat-tools-sidebar .sidebar-content{
+  width: 50%;
+  max-width: 700px;
+  min-width: 500px;
+}
+
+.cheat-tools-sidebar .sidebar-header{
+  height: 50px;
+  line-height: 50px;
+  font-size: 1.2rem;
+  border-bottom: 1px solid #999;
+  padding: 0 1em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.cheat-tools-sidebar .cheat-tools{
+  height: calc(100vh - 40px);
+  overflow: auto;
+  padding: 15px;
+}
+
+.cheat-tools-sidebar .divider{
+  width: 100%;
+  text-align: center;
+  border-bottom: .0625rem solid;
+  margin: .625rem 0;
+}
+
+.cheat-tools-sidebar .alert{
+  margin-bottom: 10px;
+}

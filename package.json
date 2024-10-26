@@ -18,7 +18,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/pmotschmann/Evolve.git"
+    "url": "git+https://github.com/chenchenwuai/Evolve.git"
   },
   "keywords": [
     "Evolve"
@@ -26,9 +26,9 @@
   "author": "Peter Motschmann",
   "license": "MPL-2.0",
   "bugs": {
-    "url": "https://github.com/pmotschmann/Evolve/issues"
+    "url": "https://github.com/chenchenwuai/Evolve/issues"
   },
-  "homepage": "https://github.com/pmotschmann/Evolve#readme",
+  "homepage": "https://github.com/chenchenwuai/Evolve#readme",
   "devDependencies": {
     "csso-cli": "^4.0.2",
     "gh-pages": "^6.1.1",

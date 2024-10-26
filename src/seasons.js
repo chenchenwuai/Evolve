@@ -236,6 +236,7 @@ export function seasonDesc(type){
     }
 }
 
+// 月圆月缺
 function moonDescription(){
     if (global.race['orbit_decayed']){
         return loc('moon0'); // New Moon
@@ -322,6 +323,7 @@ export function astroVal(sign){
     }
 }
 
+// 获取星座
 export function astrologySign(){
     const date = new Date();
     if ((date.getMonth() === 0 && date.getDate() >= 20) || (date.getMonth() === 1 && date.getDate() <= 18)){

@@ -1,6 +1,6 @@
 Vue.component('fake-website',{
   template:`<div>
-    <b-switch v-model="enableFakeWebsite" class="label" @input="onChange"> 网页伪装/老板键（开启摸鱼模式） </b-switch>
+    <b-switch v-model="enableFakeWebsite" class="label" @input="onChange"> 网页伪装（开启摸鱼模式） </b-switch>
     <div v-if="enableFakeWebsite">
       <div style="font-size: 0.7rem;padding-left:6em;">需点击空白处，然后点按快捷键会切换伪装页与正常页。如果在伪装页有触发点击或其他任何操作，需刷新网页才能恢复正常页</div> 
       <b-field label="快捷键" horizontal>
