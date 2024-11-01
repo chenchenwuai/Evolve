@@ -1204,8 +1204,15 @@ if (convertVersion(global['version']) <= 103015){
     }
 }
 
+if (convertVersion(global['version']) <= 103017){
+    if (global.race['broody']){
+        global.race['gloomy'] = global.race['broody'];
+        delete global.race['broody'];
+    }
+}
+
 global['version'] = '1.3.17';
-delete global['revision'];
+global['revision'] = 'b';
 delete global['beta'];
 
 if (!global.hasOwnProperty('prestige')){
